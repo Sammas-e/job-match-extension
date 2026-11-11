@@ -1,0 +1,66 @@
+{
+  "manifest_version": 3,
+  "name": "Job Match – Resume Keyword Scorer",
+  "short_name": "Job Match",
+  "version": "1.0.0",
+  "description": "Shows how well a job posting matches your resume as a keyword match percentage. Runs fully offline in your browser.",
+  "minimum_chrome_version": "102",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "https://*.linkedin.com/*",
+    "https://*.indeed.com/*",
+    "https://*.glassdoor.com/*",
+    "https://*.glassdoor.co.uk/*",
+    "https://*.glassdoor.ca/*",
+    "https://*.glassdoor.co.in/*",
+    "https://*.bayt.com/*",
+    "https://*.gulftalent.com/*",
+    "https://*.naukrigulf.com/*"
+  ],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.linkedin.com/*",
+        "https://*.indeed.com/*",
+        "https://*.glassdoor.com/*",
+        "https://*.glassdoor.co.uk/*",
+        "https://*.glassdoor.ca/*",
+        "https://*.glassdoor.co.in/*",
+        "https://*.bayt.com/*",
+        "https://*.gulftalent.com/*",
+        "https://*.naukrigulf.com/*"
+      ],
+      "js": [
+        "config/selectors.js",
+        "lib/stopwords.js",
+        "lib/skill-terms.js",
+        "lib/matcher.js",
+        "content/badge.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Job Match",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  }
+}
